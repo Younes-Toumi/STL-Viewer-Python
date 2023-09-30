@@ -3,7 +3,7 @@ from pygame.locals import *
 
 from OpenGL.GL import *
 from OpenGL.GLU import *
-from stl import mesh, Mode
+
 
 
 # Initializing our GL scene #
@@ -18,19 +18,17 @@ display = pygame.display.set_mode( (1200, 800), DOUBLEBUF|OPENGL, 24)
 gluPerspective(45, 1, 1, 500)
 glClearColor(0.0, 0.5, 0.5, 1.0)
 
-glTranslatef(0.0, 0.0, -400)
+# Defining our Tringle
 
+triangles = [
+    ((-1.0, -1.0, -5.0), (1.0, -1.0, -5.0), (0.0, 1.0, -5.0)),  # Triangle 1
 
-# Defining our STL Model
+    ((-1.0, -1.0, -5.0), (-1.0, 1.0, -5.0), (0.0, 1.0, -5.0)),  # Triangle 2
 
-stl_path = "STL Files//Sphere.stl"
-stl_model = mesh.Mesh.from_file(stl_path)
+    ((1.0, -1.0, -5.0), (1.0, 1.0, -5.0), (0.0, 1.0, -5.0))     # Triangle 3
+]
 
-vectors = stl_model.vectors
-normals = stl_model.normals
-
-
-glLineWidth(2)
+glLineWidth(5)
 
 # Main Loop #
 
@@ -46,7 +44,7 @@ while running:
 
 
     glClear(GL_COLOR_BUFFER_BIT)
-    glRotatef(1, 1, 0, 0)
+
     # Drawing our objects here
 
     # Filled triangle
@@ -56,7 +54,7 @@ while running:
     # Rendering our Triangle here
     glColor3f(1.0, 1.0, 1.0)
 
-    for triangle in vectors:
+    for triangle in triangles:
         for vertex in triangle:
             glVertex3fv(vertex)
 
@@ -70,7 +68,7 @@ while running:
     # Rendering our Triangle here
     glColor3f(0.0, 0.0, 0.0)
 
-    for triangle in vectors:
+    for triangle in triangles:
         for vertex in triangle:
             glVertex3fv(vertex)
 
